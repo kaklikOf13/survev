@@ -833,7 +833,7 @@ const SkinDefs: Record<string, OutfitDef> = {
             handSprite: "player-hands-01.img",
             footTint: 0x83af50,
             footSprite: "player-feet-01.img",
-            backpackTint: 0x663300,
+            backpackTint: 0x83af50,
             backpackSprite: "player-circle-base-01.img",
         },
         lootImg: {

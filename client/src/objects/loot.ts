@@ -29,6 +29,10 @@ export class Loot implements AbstractObject {
     playDropSfx = false;
     container = new PIXI.Sprite();
     sprite = new PIXI.Sprite();
+    sprite_hand1?:PIXI.Sprite;
+    sprite_hand2?:PIXI.Sprite;
+    sprite_backpack?:PIXI.Sprite;
+    sprite_vest?:PIXI.Sprite;
     emitter: Emitter | null = null;
 
     updatedData!: boolean;
@@ -59,6 +63,17 @@ export class Loot implements AbstractObject {
     }
 
     m_free() {
+        if(this.sprite_backpack){
+            this.sprite_backpack.destroy()
+            this.sprite_hand1!.destroy()
+            this.sprite_hand2!.destroy()
+            this.sprite_vest!.destroy()
+
+            this.sprite_backpack=undefined
+            this.sprite_hand1=undefined
+            this.sprite_hand2=undefined
+            this.sprite_vest=undefined
+        }
         this.container.visible = false;
         if (this.emitter) {
             this.emitter.stop();
@@ -118,14 +133,10 @@ export class Loot implements AbstractObject {
                 (itemDef as { lootImg: { innerScale?: number } }).lootImg.innerScale ||
                 0.8;
             this.sprite.scale.set(innerScale, innerScale);
-            this.sprite.texture = PIXI.Texture.from(itemDef.lootImg?.sprite);
-            this.sprite.tint = itemDef.lootImg?.tint;
             this.container.texture = itemDef.lootImg.border
                 ? PIXI.Texture.from(itemDef.lootImg.border)
                 : PIXI.Texture.EMPTY;
-            if (this.isPreloadedGun) {
-                this.container.texture = PIXI.Texture.from("loot-circle-outer-06.img");
-            }
+                
             const ammo = GameObjectDefs[(itemDef as GunDef).ammo] as AmmoDef;
             if (ammo) {
                 this.container.tint = ammo.lootImg.tintDark!;
@@ -134,21 +145,68 @@ export class Loot implements AbstractObject {
             } else {
                 this.container.tint = 0;
             }
+            if(itemDef.type==="outfit"&&itemDef.skinImg){
+                this.sprite.texture = PIXI.Texture.from(itemDef.skinImg.baseSprite);
+                this.sprite.tint = itemDef.skinImg.baseTint;
 
-            if (itemDef.type == "xp" && itemDef.emitter) {
-                this.emitter = ctx.particleBarn.addEmitter(itemDef.emitter, {
-                    pos: this.pos,
-                    layer: this.layer,
-                });
+                this.sprite_hand1=new PIXI.Sprite()
+                this.sprite_hand1.texture=PIXI.Texture.from(itemDef.skinImg.handSprite);
+                this.sprite_hand1.tint=itemDef.skinImg.handTint;
+                this.sprite_hand1.anchor.set(0.5, 0.5);
+                this.sprite_hand1.scale.set(0.36,0.36)
+                this.sprite_hand1.position.set(27,27)
+
+                this.sprite_hand2=new PIXI.Sprite()
+                this.sprite_hand2.texture=PIXI.Texture.from(itemDef.skinImg.handSprite);
+                this.sprite_hand2.tint=itemDef.skinImg.handTint;
+                this.sprite_hand2.anchor.set(0.5, 0.5);
+                this.sprite_hand2.scale.set(0.36,0.36)
+                this.sprite_hand2.position.set(-27,27)
+
+                this.sprite_backpack=new PIXI.Sprite()
+                this.sprite_backpack.texture=PIXI.Texture.from(itemDef.skinImg.backpackSprite);
+                this.sprite_backpack.tint=itemDef.skinImg.backpackTint;
+                this.sprite_backpack.anchor.set(0.5, 0.5);
+                this.sprite_backpack.scale.set(0.42,0.42)
+                this.sprite_backpack.position.set(0,-28)
+                this.sprite_backpack.zIndex=-100
+    
+                this.sprite_vest=new PIXI.Sprite()
+                this.sprite_vest.texture=PIXI.Texture.from("player-armor-base-01.img");
+                this.sprite_vest.tint=0;
+                this.sprite_vest.anchor.set(0.5, 0.5);
+                this.sprite_vest.scale.set(0.52,0.52)
+                this.sprite_vest.position.set(0,0)
+                this.sprite_vest.zIndex=-99
+
+                this.container.addChild(this.sprite_hand1)
+                this.container.addChild(this.sprite_hand2)
+                this.container.addChild(this.sprite_backpack)
+                this.container.addChild(this.sprite_vest)
+
+                this.sprite.scale.set(0.52, 0.52);
+                this.container.sortChildren()
+            }else{
+                this.sprite.texture = PIXI.Texture.from(itemDef.lootImg?.sprite);
+                this.sprite.tint = itemDef.lootImg?.tint;
+                if (this.isPreloadedGun) {
+                    this.container.texture = PIXI.Texture.from("loot-circle-outer-06.img");
+                }
+
+                if (itemDef.type == "xp" && itemDef.emitter) {
+                    this.emitter = ctx.particleBarn.addEmitter(itemDef.emitter, {
+                        pos: this.pos,
+                        layer: this.layer,
+                    });
+                }
+                this.sprite.scale.x = (itemDef as MeleeDef).lootImg.mirror
+                    ? -innerScale
+                    : innerScale;
             }
-
+            
             this.sprite.rotation = (itemDef as MeleeDef)?.lootImg?.rot
                 ? (itemDef as MeleeDef).lootImg.rot!
                 : 0;
-            this.sprite.scale.x = (itemDef as MeleeDef).lootImg.mirror
-                ? -innerScale
-                : innerScale;
-
             this.container.visible = true;
         }
 
