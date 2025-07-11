@@ -218,6 +218,7 @@ export const Main: MapDef = {
             { name: "m249", count: 1, weight: 0.2 },
             { name: "awc", count: 1, weight: 0.1 },
             { name: "pkp", count: 1, weight: 0.1 },
+            { name: "m134", count: 1, weight: 0.08 },
         ],
         tier_sledgehammer: [{ name: "sledgehammer", count: 1, weight: 1 }],
         tier_chest_04: [
@@ -232,6 +233,7 @@ export const Main: MapDef = {
             { name: "mk12", count: 1, weight: 0.1 },
             { name: "pkp", count: 1, weight: 0.005 },
             { name: "m249", count: 1, weight: 0.006 },
+            { name: "m134", count: 1, weight: 0.003 },
             { name: "ak47", count: 1, weight: 2.7 },
             { name: "scar", count: 1, weight: 0.01 },
             { name: "dp28", count: 1, weight: 0.5 },
@@ -308,6 +310,7 @@ export const Main: MapDef = {
             { name: "mp220", count: 1, weight: 0.15 },
             { name: "pkp", count: 1, weight: 0.01 },
             { name: "m249", count: 1, weight: 0.01 },
+            { name: "m134", count: 1, weight: 0.01 },
             { name: "m9", count: 1, weight: 0.01 },
         ],
         tier_lmgs: [
@@ -316,6 +319,7 @@ export const Main: MapDef = {
             { name: "qbb97", count: 1, weight: 0.5 }, // ?
             { name: "m249", count: 1, weight: 0.05 }, // ?
             { name: "pkp", count: 1, weight: 0.05 }, // ?
+            { name: "m134", count: 1, weight: 0.03 }, // ?
         ],
         tier_shotguns: [
             { name: "spas12", count: 1, weight: 2 }, // ?
@@ -333,6 +337,7 @@ export const Main: MapDef = {
         tier_pavilion: [
             { name: "naginata", count: 1, weight: 2 }, // ?
             { name: "pkp", count: 1, weight: 2 }, // ?
+            { name: "pkp", count: 1, weight: 1 }, // ?
             { name: "dp28", count: 1, weight: 1 }, // ?
             { name: "bar", count: 1, weight: 1 }, // ?
             { name: "m9", count: 1, weight: 1 }, // ?
@@ -448,6 +453,7 @@ export const Main: MapDef = {
             { name: "awc", count: 1, weight: 1 },
             { name: "scarssr", count: 1, weight: 1 },
             { name: "pkp", count: 1, weight: 1 },
+            { name: "m134", count: 1, weight: 0.9 },
             { name: "m249", count: 1, weight: 1 },
             { name: "sv98", count: 1, weight: 1 },
             { name: "pan", count: 1, weight: 1 },
@@ -479,6 +485,7 @@ export const Main: MapDef = {
         tier_airdrop_rare: [
             { name: "garand", count: 1, weight: 6 },
             { name: "awc", count: 1, weight: 3 },
+            { name: "m134", count: 1, weight: 0.08 },
             { name: "pkp", count: 1, weight: 0.08 },
             { name: "m249", count: 1, weight: 0.1 },
             { name: "m4a1", count: 1, weight: 4 },
@@ -491,6 +498,7 @@ export const Main: MapDef = {
             { name: "p30l_dual", count: 1, weight: 1 }, // ?
             { name: "awc", count: 1, weight: 0.1 }, // ?
             { name: "pkp", count: 1, weight: 0.3 }, // ?
+            { name: "m134", count: 1, weight: 0.3 }, // ?
             { name: "m249", count: 1, weight: 0.3 }, // ?
         ],
         tier_airdrop_ammo: [
